@@ -17,8 +17,8 @@ const Header = ({ theme, setTheme }) => {
   return (
     <S.Header>
       <S.Logo>
-        <img src={KartLogo} />
-        <img src={TmiLogo} />
+        <img src={KartLogo} alt="kart logo" />
+        <img src={TmiLogo} alt="tmi logo" />
       </S.Logo>
       <S.Wrapper>
         <S.Link href="https://kart.nexon.com/Main/Index.aspx" target="_blank">
