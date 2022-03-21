@@ -4,6 +4,7 @@ export const Search = styled.div`
   border-bottom: ${({ isFocus }) =>
     isFocus ? '1px solid white' : '1px solid #8cafe6'};
   height: 100%;
+  margin-right: 30px;
 `;
 
 export const Input = styled.input`
