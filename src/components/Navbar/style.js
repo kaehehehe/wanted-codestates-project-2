@@ -10,7 +10,7 @@ export const Navbar = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 
