@@ -1,10 +1,51 @@
-import React, { useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
+import axios from 'axios';
 
 import * as S from './style';
-import { ReactComponent as SearchIcon } from '../../assets/search.svg';
+import { ReactComponent as SearchIcon } from '../../assets/images/icons/search.svg';
+import { GlobalContext } from '../../App';
+const KEY = process.env.REACT_APP_KEY;
 
 const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
+  const inputRef = useRef(null);
+  const { setUserData } = useContext(GlobalContext);
+
+  const searchNickname = async (nickname) => {
+    return await axios.get(`/kart/v1.0/users/nickname/${nickname}`, {
+      headers: { Authorization: KEY },
+    });
+  };
+
+  const fetchUserData = async (accessId) => {
+    return await axios.get(`/kart/v1.0/users/${accessId}/matches/?limit=200`, {
+      headers: { Authorization: KEY },
+    });
+  };
+
+  const fetchSearchedData = (nickname) => {
+    searchNickname(nickname).then((res) => {
+      const { accessId } = res.data;
+      fetchUserData(accessId).then((res) =>
+        setUserData(res.data.matches[0].matches)
+      );
+    });
+  };
+
+  const handleInput = (e) => {
+    const nickname = inputRef.current.value;
+    if (e.key === 'Enter') {
+      if (nickname === '') return;
+      fetchSearchedData(nickname);
+    }
+  };
+
+  const handleClickBtn = () => {
+    const nickname = inputRef.current.value;
+    if (nickname === '') return;
+    fetchSearchedData(nickname);
+  };
+
   return (
     <S.Search isFocus={isFocus}>
       <S.Input
@@ -12,8 +53,10 @@ const Search = () => {
         placeholder={isFocus ? '' : '닉네임 검색'}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
+        onKeyUp={(e) => handleInput(e)}
+        ref={inputRef}
       />
-      <S.SearchBtn>
+      <S.SearchBtn onClick={handleClickBtn}>
         <SearchIcon fill={'#8cafe6'} className="icon" />
       </S.SearchBtn>
     </S.Search>
