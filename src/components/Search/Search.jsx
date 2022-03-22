@@ -1,5 +1,6 @@
 import React, { useRef, useState, useContext } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import * as S from './style';
 import { ReactComponent as SearchIcon } from '../../assets/images/icons/search.svg';
@@ -10,6 +11,7 @@ const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
   const inputRef = useRef(null);
   const { setUserData } = useContext(GlobalContext);
+  const navigate = useNavigate();
 
   const searchNickname = async (nickname) => {
     return await axios.get(`/kart/v1.0/users/nickname/${nickname}`, {
@@ -23,12 +25,15 @@ const Search = () => {
     });
   };
 
-  const fetchSearchedData = (nickname) => {
+  const search = (nickname) => {
     searchNickname(nickname).then((res) => {
       const { accessId } = res.data;
-      fetchUserData(accessId).then((res) =>
-        setUserData(res.data.matches[0].matches)
-      );
+      fetchUserData(accessId).then((res) => {
+        console.log(res.data)
+        setUserData(res.data.matches[0].matches);
+        navigate(`/user/${nickname}`);
+        inputRef.current.value = '';
+      });
     });
   };
 
@@ -36,14 +41,14 @@ const Search = () => {
     const nickname = inputRef.current.value;
     if (e.key === 'Enter') {
       if (nickname === '') return;
-      fetchSearchedData(nickname);
+      search(nickname);
     }
   };
 
   const handleClickBtn = () => {
     const nickname = inputRef.current.value;
     if (nickname === '') return;
-    fetchSearchedData(nickname);
+    search(nickname);
   };
 
   return (
