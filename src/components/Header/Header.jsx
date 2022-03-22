@@ -1,10 +1,10 @@
 import React from 'react';
 
 import * as S from './style';
-import KartLogo from '../../assets/kart_logo.png';
-import TmiLogo from '../../assets/tmi_logo.png';
-import { ReactComponent as Sun } from '../../assets/sun.svg';
-import { ReactComponent as Moon } from '../../assets/moon.svg';
+import KartLogo from '../../assets/images/logos/kart_logo.png';
+import TmiLogo from '../../assets/images/logos/tmi_logo.png';
+import { ReactComponent as Sun } from '../../assets/images/icons/sun.svg';
+import { ReactComponent as Moon } from '../../assets/images/icons/moon.svg';
 
 const Header = ({ theme, setTheme }) => {
   const handleClickThemeToggle = () => {
