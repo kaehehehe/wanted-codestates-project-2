@@ -34,14 +34,15 @@ export const Nav = styled.nav`
 
 export const NavMenuContainer = styled.div`
   background-color: #7cabe1;
+  visibility: ${({ isHover }) => (isHover ? 'visible' : 'hidden')};
 `;
 
 export const NavMenu = styled.div`
-  display: ${({ isHover }) => (isHover ? 'block' : 'none')};
   max-width: 1200px;
   padding: 8px 0 8px 120px;
   margin: 0 auto;
   background-color: #7cabe1;
+  visibility: ${({ isHover }) => (isHover ? 'visible' : 'hidden')};
 
   a {
     color: white;

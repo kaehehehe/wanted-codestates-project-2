@@ -23,7 +23,7 @@ const Navbar = () => {
           <Search />
         </S.Navbar>
       </S.NavbarContainer>
-      <S.NavMenuContainer>
+      <S.NavMenuContainer isHover={isHover}>
         <S.NavMenu
           isHover={isHover}
           onMouseEnter={() => setIsHover(true)}
