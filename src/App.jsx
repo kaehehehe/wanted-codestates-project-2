@@ -14,7 +14,7 @@ export const GlobalContext = createContext(null);
 
 const App = () => {
   const [theme, setTheme] = useLocalStorage('theme', 'light');
-  const [userSoloMatchData, setUserSoloMatchData] = useState([])
+  const [userSoloMatchData, setUserSoloMatchData] = useState([]);
   const [userTeamMatchData, setUserTeamMatchData] = useState([]);
   return (
     <Router>
