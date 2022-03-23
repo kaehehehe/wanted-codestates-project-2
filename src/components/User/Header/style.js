@@ -2,13 +2,20 @@ import styled from 'styled-components';
 
 export const Header = styled.div`
   display: flex;
+  justify-content: space-around;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 10px;
   border-color: ${({ theme }) => theme.grayColor};
   border-width: 2px;
   border-style: solid;
   border-radius: 5px;
   padding: 10px 0;
+`;
+
+export const Left = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
 `;
 
 export const Character = styled.img`
@@ -18,7 +25,6 @@ export const Character = styled.img`
 
 export const Wrapper = styled.div`
   display: flex;
-  margin-left: 40px;
   flex-direction: column;
 `;
 

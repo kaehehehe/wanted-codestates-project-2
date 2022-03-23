@@ -10,7 +10,8 @@ const KEY = process.env.REACT_APP_KEY;
 const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
   const inputRef = useRef(null);
-  const { setUserData } = useContext(GlobalContext);
+  const { setUserSoloMatchData, setUserTeamMatchData } =
+    useContext(GlobalContext);
   const navigate = useNavigate();
 
   const searchNickname = async (nickname) => {
@@ -19,21 +20,38 @@ const Search = () => {
     });
   };
 
-  const fetchUserData = async (accessId) => {
-    return await axios.get(`/kart/v1.0/users/${accessId}/matches/?limit=200`, {
-      headers: { Authorization: KEY },
-    });
+  const fetchUserSoloData = async (accessId) => {
+    return await axios.get(
+      `/kart/v1.0/users/${accessId}/matches/?limit=200&match_types=7b9f0fd5377c38514dbb78ebe63ac6c3b81009d5a31dd569d1cff8f005aa881a`,
+      {
+        headers: { Authorization: KEY },
+      }
+    );
+  };
+
+  const fetchUserTeamData = async (accessId) => {
+    return await axios.get(
+      `/kart/v1.0/users/${accessId}/matches/?limit=200&match_types=effd66758144a29868663aa50e85d3d95c5bc0147d7fdb9802691c2087f3416e`,
+      {
+        headers: { Authorization: KEY },
+      }
+    );
   };
 
   const search = (nickname) => {
     searchNickname(nickname).then((res) => {
       const { accessId } = res.data;
-      fetchUserData(accessId).then((res) => {
-        console.log(res.data)
-        setUserData(res.data.matches[0].matches);
-        navigate(`/user/${nickname}`);
-        inputRef.current.value = '';
+      fetchUserSoloData(accessId).then((res) => {
+        setUserSoloMatchData(res.data.matches[0].matches);
       });
+
+      fetchUserTeamData(accessId).then((res) => {
+        console.log(res.data.matches[0].matches);
+        setUserTeamMatchData(res.data.matches[0].matches);
+      });
+
+      navigate(`/user/${nickname}`);
+      inputRef.current.value = '';
     });
   };
 

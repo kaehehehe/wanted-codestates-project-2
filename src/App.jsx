@@ -14,12 +14,20 @@ export const GlobalContext = createContext(null);
 
 const App = () => {
   const [theme, setTheme] = useLocalStorage('theme', 'light');
-  const [userData, setUserData] = useState([]);
+  const [useSoloMatchData, setUserSoloMatchData] = useState([])
+  const [useTeamMatchData, setUserTeamMatchData] = useState([]);
   return (
     <Router>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         <GlobalStyle />
-        <GlobalContext.Provider value={{ userData, setUserData }}>
+        <GlobalContext.Provider
+          value={{
+            useSoloMatchData,
+            setUserSoloMatchData,
+            useTeamMatchData,
+            setUserTeamMatchData,
+          }}
+        >
           <Header theme={theme} setTheme={setTheme} />
           <Navbar />
           <Routes>
