@@ -16,6 +16,7 @@ const User = () => {
   const [matchType, setMatchType] = useState('solo');
   const { nickname } = useParams();
   const { userSoloMatchData, userTeamMatchData } = useContext(GlobalContext);
+  const [favoriteMode, setFavoriteMode] = useState('');
 
   const [removeRetire, setRemoveRetire] = useState(false);
   const [removeRetireSoloData, setRetireSoloData] = useState([]);
@@ -28,7 +29,37 @@ const User = () => {
 
   const findKartName = (kartId) => {
     const track = KART_DATA.filter((item) => item.id === kartId);
-    return track[0].name;
+    return track[0]?.name;
+  };
+
+  const findFavoriteMode = (data) => {
+    switch (matchType) {
+      case 'solo':
+        const speedIndiCombine = data.filter(
+          (item) => item.channelName === 'speedIndiCombine'
+        );
+        const speedIndiInfinit = data.filter(
+          (item) => item.channelName === 'speedIndiInfinit'
+        );
+        if (speedIndiCombine >= speedIndiInfinit) {
+          return '통합';
+        } else {
+          return '무한부스터';
+        }
+      case 'team':
+        const speedTeamCombine = data.filter(
+          (item) => item.channelName === 'speedTeamCombine'
+        );
+        const speedTeamInfinit = data.filter(
+          (item) => item.channelName === 'speedTeamInfinit'
+        );
+        if (speedTeamCombine >= speedTeamInfinit) {
+          return '통합';
+        } else {
+          return '무한부스터';
+        }
+      default:
+    }
   };
 
   const removeRetireMatch = (data) => {
@@ -61,6 +92,21 @@ const User = () => {
   };
 
   useEffect(() => {
+    let result;
+    switch (matchType) {
+      case 'solo':
+        result = findFavoriteMode(userSoloMatchData);
+        setFavoriteMode(result);
+        break;
+      case 'team':
+        result = findFavoriteMode(userTeamMatchData);
+        setFavoriteMode(result);
+        break;
+      default:
+    }
+  }, [matchType]);
+
+  useEffect(() => {
     if (userSoloMatchData) {
       const result = removeRetireMatch(userSoloMatchData);
       setRetireSoloData(result);
@@ -81,6 +127,7 @@ const User = () => {
               matchType={matchType}
               setMatchType={setMatchType}
               nickname={nickname}
+              imgId={userSoloMatchData[0]?.character}
             />
             {matchType === 'solo' && (
               <TotalRecord
@@ -103,11 +150,9 @@ const User = () => {
             <span>
               1대1 매칭 시뮬레이터 - '{nickname}' 와 가상 대결을 펼쳐보세요.
             </span>
-            <button
-            >
-              매칭하기
-            </button>
+            <button>매칭하기</button>
           </S.MatchingSimulator>
+          <S.FavoriteMode>최다주행 모드 {favoriteMode}</S.FavoriteMode>
           <S.MatchRecordList>
             <S.ToggleWrapper>
               <p>리타이어 제외</p>
