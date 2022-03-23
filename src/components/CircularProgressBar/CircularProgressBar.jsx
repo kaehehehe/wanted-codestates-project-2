@@ -13,7 +13,7 @@ const CircularProgressBar = ({ color, value }) => {
           strokeWidth={8}
           strokeColor={color}
           trackStrokeColor="#EBEBEB"
-          trackTransition="0"
+          trackTransition={0}
           strokeLinecap="square"
           trackStrokeWidth={8}
           initialAnimation={true}
