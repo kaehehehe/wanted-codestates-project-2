@@ -18,6 +18,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     user-select: none;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   }
   
   a {
