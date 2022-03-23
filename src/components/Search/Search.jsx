@@ -5,10 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 import { ReactComponent as SearchIcon } from '../../assets/images/icons/search.svg';
 import { GlobalContext } from '../../App';
+import Modal from '../Modal/Modal';
+import { ModalPortals } from '../../components/Modal/ModalPortals';
 const KEY = process.env.REACT_APP_KEY;
 
 const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const inputRef = useRef(null);
   const { setUserSoloMatchData, setUserTeamMatchData } =
     useContext(GlobalContext);
@@ -39,19 +42,21 @@ const Search = () => {
   };
 
   const search = (nickname) => {
-    searchNickname(nickname).then((res) => {
-      const { accessId } = res.data;
-      fetchUserSoloData(accessId).then((res) => {
-        setUserSoloMatchData(res.data.matches[0].matches);
-      });
+    searchNickname(nickname)
+      .then((res) => {
+        const { accessId } = res.data;
+        fetchUserSoloData(accessId).then((res) => {
+          setUserSoloMatchData(res.data.matches[0].matches);
+        });
 
-      fetchUserTeamData(accessId).then((res) => {
-        setUserTeamMatchData(res.data.matches[0].matches);
-      });
+        fetchUserTeamData(accessId).then((res) => {
+          setUserTeamMatchData(res.data.matches[0].matches);
+        });
 
-      navigate(`/user/${nickname}`);
-      inputRef.current.value = '';
-    });
+        navigate(`/user/${nickname}`);
+        inputRef.current.value = '';
+      })
+      .catch((res) => setShowModal(true));
   };
 
   const handleInput = (e) => {
@@ -69,19 +74,28 @@ const Search = () => {
   };
 
   return (
-    <S.Search isFocus={isFocus}>
-      <S.Input
-        type="text"
-        placeholder={isFocus ? '' : '닉네임 검색'}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
-        onKeyUp={(e) => handleInput(e)}
-        ref={inputRef}
-      />
-      <S.SearchBtn onClick={handleClickBtn}>
-        <SearchIcon fill={'#8cafe6'} className="icon" />
-      </S.SearchBtn>
-    </S.Search>
+    <>
+      <S.Search isFocus={isFocus}>
+        <S.Input
+          type="text"
+          placeholder={isFocus ? '' : '닉네임 검색'}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          onKeyUp={(e) => handleInput(e)}
+          ref={inputRef}
+        />
+        <S.SearchBtn onClick={handleClickBtn}>
+          <SearchIcon fill={'#8cafe6'} className="icon" />
+        </S.SearchBtn>
+      </S.Search>
+      {showModal && (
+        <ModalPortals>
+          <Modal
+            setShow={setShowModal}
+          />
+        </ModalPortals>
+      )}
+    </>
   );
 };
 

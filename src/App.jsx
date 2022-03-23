@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Ranking from './pages/Ranking/Ranking';
 import Track from './pages/Track/Track';
 import User from './pages/User/User';
+import NotFound from './pages/NotFound';
 import { lightTheme, darkTheme, GlobalStyle } from './GlobalStyle';
 import { useLocalStorage } from './hooks/useLocalStorage';
 
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="/track/solo" element={<Track />} />
             <Route path="/track/team" element={<Track />} />
             <Route path="/user/:nickname" element={<User />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </GlobalContext.Provider>
       </ThemeProvider>
