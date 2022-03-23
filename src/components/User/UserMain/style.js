@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Header = styled.div`
   display: flex;
@@ -6,7 +6,19 @@ export const Header = styled.div`
   align-items: center;
 `;
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
 export const Character = styled.img`
+  animation: ${fadeIn} 1s linear;
   width: auto;
   height: 120px;
 `;
