@@ -5,7 +5,7 @@ import CircularProgressBar from '../../CircularProgressBar/CircularProgressBar';
 import { GlobalContext } from '../../../App';
 
 const TotalRecord = ({ matchType }) => {
-  const { useSoloMatchData, useTeamMatchData } = useContext(GlobalContext);
+  const { userSoloMatchData, userTeamMatchData } = useContext(GlobalContext);
   const [win, setWin] = useState(null);
   const [goalIn, setGoalIn] = useState(null);
   const [retire, setRetire] = useState(null);
@@ -31,14 +31,14 @@ const TotalRecord = ({ matchType }) => {
   useEffect(() => {
     switch (matchType) {
       case 'solo':
-        setWin(calculateWin(useSoloMatchData));
-        setGoalIn(calculateGoalIn(useSoloMatchData));
-        setRetire(calculateRetire(useSoloMatchData));
+        setWin(calculateWin(userSoloMatchData));
+        setGoalIn(calculateGoalIn(userSoloMatchData));
+        setRetire(calculateRetire(userSoloMatchData));
         break;
       case 'team':
-        setWin(calculateWin(useTeamMatchData));
-        setGoalIn(calculateGoalIn(useTeamMatchData));
-        setRetire(calculateRetire(useTeamMatchData));
+        setWin(calculateWin(userTeamMatchData));
+        setGoalIn(calculateGoalIn(userTeamMatchData));
+        setRetire(calculateRetire(userTeamMatchData));
         break;
       default:
     }

@@ -14,17 +14,17 @@ export const GlobalContext = createContext(null);
 
 const App = () => {
   const [theme, setTheme] = useLocalStorage('theme', 'light');
-  const [useSoloMatchData, setUserSoloMatchData] = useState([])
-  const [useTeamMatchData, setUserTeamMatchData] = useState([]);
+  const [userSoloMatchData, setUserSoloMatchData] = useState([])
+  const [userTeamMatchData, setUserTeamMatchData] = useState([]);
   return (
     <Router>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         <GlobalStyle />
         <GlobalContext.Provider
           value={{
-            useSoloMatchData,
+            userSoloMatchData,
             setUserSoloMatchData,
-            useTeamMatchData,
+            userTeamMatchData,
             setUserTeamMatchData,
           }}
         >

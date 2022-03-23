@@ -14,7 +14,7 @@ import Toggle from '../../components/Toggle/Toggle';
 const User = () => {
   const [matchType, setMatchType] = useState('solo');
   const { nickname } = useParams();
-  const { useSoloMatchData, useTeamMatchData } = useContext(GlobalContext);
+  const { userSoloMatchData, userTeamMatchData } = useContext(GlobalContext);
 
   const [removeRetire, setRemoveRetire] = useState(false);
   const [removeRetireSoloData, setRetireSoloData] = useState([]);
@@ -36,20 +36,20 @@ const User = () => {
   };
 
   useEffect(() => {
-    if (useSoloMatchData) {
-      const result = removeRetireMatch(useSoloMatchData);
+    if (userSoloMatchData) {
+      const result = removeRetireMatch(userSoloMatchData);
       setRetireSoloData(result);
     }
 
-    if (useTeamMatchData) {
-      const result = removeRetireMatch(useTeamMatchData);
+    if (userTeamMatchData) {
+      const result = removeRetireMatch(userTeamMatchData);
       setRetireTeamData(result);
     }
   }, []);
 
   return (
     <>
-      {useSoloMatchData && useTeamMatchData && (
+      {userSoloMatchData && userTeamMatchData && (
         <S.Container>
           <Header
             matchType={matchType}
@@ -76,7 +76,7 @@ const User = () => {
               ))}
             {matchType === 'solo' &&
               !removeRetire &&
-              useSoloMatchData.map((data) => (
+              userSoloMatchData.map((data) => (
                 <MatchRecord
                   key={data.matchId}
                   endTime={convertDataIntoAgo(data.endTime)}
@@ -102,7 +102,7 @@ const User = () => {
               ))}
             {matchType === 'team' &&
               !removeRetire &&
-              useTeamMatchData.map((data) => (
+              userTeamMatchData.map((data) => (
                 <MatchRecord
                   key={data.matchId}
                   endTime={convertDataIntoAgo(data.endTime)}
