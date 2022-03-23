@@ -7,7 +7,6 @@ import * as S from './style';
 const Header = ({ matchType, setMatchType, nickname }) => {
   return (
     <S.Header>
-      <S.Left>
       <S.Character src={Character} alt="character" />
       <S.Wrapper>
         <S.Nickname>{nickname}</S.Nickname>
@@ -20,7 +19,6 @@ const Header = ({ matchType, setMatchType, nickname }) => {
           </S.TeamBtn>
         </S.Buttons>
       </S.Wrapper>
-      </S.Left>
     </S.Header>
   );
 };

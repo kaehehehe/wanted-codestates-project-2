@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import * as S from './style';
-import Header from '../../components/User/Header';
+import Header from '../../components/User/UserMain';
 import { GlobalContext } from '../../App';
 import MatchRecord from '../../components/User/MatchRecord';
 import { convertDataIntoAgo } from '../../utils/convertDataIntoAgo';
