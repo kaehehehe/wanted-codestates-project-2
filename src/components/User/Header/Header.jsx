@@ -21,7 +21,6 @@ const Header = ({ matchType, setMatchType, nickname }) => {
         </S.Buttons>
       </S.Wrapper>
       </S.Left>
-      <TotalRecord matchType={matchType} />
     </S.Header>
   );
 };

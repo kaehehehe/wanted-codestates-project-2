@@ -10,6 +10,7 @@ import { convertDataIntoTime } from '../../utils/convertDataIntoTime';
 import { track as TRACK_DATA } from '../../assets/metadata/track';
 import { kart as KART_DATA } from '../../assets/metadata/kart';
 import Toggle from '../../components/Toggle/Toggle';
+import TotalRecord from '../../components/User/TotalRecord/TotalRecord';
 
 const User = () => {
   const [matchType, setMatchType] = useState('solo');
@@ -35,6 +36,24 @@ const User = () => {
     return result;
   };
 
+  const calculateWin = (data) => {
+    const total = data.length;
+    const win = data.filter((item) => item.player.matchWin === '1');
+    return Math.round((win.length / total) * 100);
+  };
+
+  const calculateGoalIn = (data) => {
+    const total = data.length;
+    const goalIn = data.filter((item) => Number(item.player.matchRank) <= 8);
+    return Math.round((goalIn.length / total) * 100);
+  };
+
+  const calculateRetire = (data) => {
+    const total = data.length;
+    const retire = data.filter((item) => item.player.matchRetired === '1');
+    return Math.round((retire.length / total) * 100);
+  };
+
   useEffect(() => {
     if (userSoloMatchData) {
       const result = removeRetireMatch(userSoloMatchData);
@@ -51,11 +70,27 @@ const User = () => {
     <>
       {userSoloMatchData && userTeamMatchData && (
         <S.Container>
-          <Header
-            matchType={matchType}
-            setMatchType={setMatchType}
-            nickname={nickname}
-          />
+          <S.UserMain>
+            <Header
+              matchType={matchType}
+              setMatchType={setMatchType}
+              nickname={nickname}
+            />
+            {matchType === 'solo' && (
+              <TotalRecord
+                win={calculateWin(userSoloMatchData)}
+                goalIn={calculateGoalIn(userSoloMatchData)}
+                retire={calculateRetire(userSoloMatchData)}
+              />
+            )}
+            {matchType === 'team' && (
+              <TotalRecord
+                win={calculateWin(userTeamMatchData)}
+                goalIn={calculateGoalIn(userTeamMatchData)}
+                retire={calculateRetire(userTeamMatchData)}
+              />
+            )}
+          </S.UserMain>
           <S.MatchRecordList>
             <S.ToggleWrapper>
               <p>리타이어 제외</p>

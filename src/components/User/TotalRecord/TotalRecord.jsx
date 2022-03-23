@@ -1,48 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 
 import * as S from './style';
 import CircularProgressBar from '../../CircularProgressBar/CircularProgressBar';
-import { GlobalContext } from '../../../App';
 
-const TotalRecord = ({ matchType }) => {
-  const { userSoloMatchData, userTeamMatchData } = useContext(GlobalContext);
-  const [win, setWin] = useState(null);
-  const [goalIn, setGoalIn] = useState(null);
-  const [retire, setRetire] = useState(null);
-
-  const calculateWin = (data) => {
-    const total = data.length;
-    const win = data.filter((item) => item.player.matchWin === '1');
-    return Math.round((win.length / total) * 100);
-  };
-
-  const calculateGoalIn = (data) => {
-    const total = data.length;
-    const goalIn = data.filter((item) => Number(item.player.matchRank) <= 8);
-    return Math.round((goalIn.length / total) * 100);
-  };
-
-  const calculateRetire = (data) => {
-    const total = data.length;
-    const retire = data.filter((item) => item.player.matchRetired === '1');
-    return Math.round((retire.length / total) * 100);
-  };
-
-  useEffect(() => {
-    switch (matchType) {
-      case 'solo':
-        setWin(calculateWin(userSoloMatchData));
-        setGoalIn(calculateGoalIn(userSoloMatchData));
-        setRetire(calculateRetire(userSoloMatchData));
-        break;
-      case 'team':
-        setWin(calculateWin(userTeamMatchData));
-        setGoalIn(calculateGoalIn(userTeamMatchData));
-        setRetire(calculateRetire(userTeamMatchData));
-        break;
-      default:
-    }
-  }, [matchType]);
+const TotalRecord = ({ win, goalIn, retire }) => {
 
   return (
     <S.Container>
