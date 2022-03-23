@@ -70,7 +70,7 @@ const User = () => {
       const result = removeRetireMatch(userTeamMatchData);
       setRetireTeamData(result);
     }
-  }, []);
+  }, [removeRetire]);
 
   return (
     <>
