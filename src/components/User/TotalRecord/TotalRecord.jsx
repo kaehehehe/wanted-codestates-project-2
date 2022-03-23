@@ -3,8 +3,7 @@ import React from 'react';
 import * as S from './style';
 import CircularProgressBar from '../../CircularProgressBar/CircularProgressBar';
 
-const TotalRecord = ({ win, goalIn, retire }) => {
-
+const TotalRecord = ({ win, goalIn, retire, dropout }) => {
   return (
     <S.Container>
       <S.TitleWrapper>
@@ -22,6 +21,10 @@ const TotalRecord = ({ win, goalIn, retire }) => {
         <S.CircularProgressBar>
           <S.ProgressBarName>리타이어율</S.ProgressBarName>
           <CircularProgressBar color="#F62458" value={retire} />
+        </S.CircularProgressBar>
+        <S.CircularProgressBar>
+          <S.ProgressBarName>중도이탈율</S.ProgressBarName>
+          <CircularProgressBar color="#FF7700" value={dropout} />
         </S.CircularProgressBar>
       </S.CircularProgressBarWrapper>
     </S.Container>

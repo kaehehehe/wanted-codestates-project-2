@@ -54,6 +54,12 @@ const User = () => {
     return Math.round((retire.length / total) * 100);
   };
 
+  const calculateDropout = (data) => {
+    const total = data.length;
+    const retire = data.filter((item) => item.player.matchRank === '');
+    return Math.round((retire.length / total) * 100);
+  };
+
   useEffect(() => {
     if (userSoloMatchData) {
       const result = removeRetireMatch(userSoloMatchData);
@@ -81,6 +87,7 @@ const User = () => {
                 win={calculateWin(userSoloMatchData)}
                 goalIn={calculateGoalIn(userSoloMatchData)}
                 retire={calculateRetire(userSoloMatchData)}
+                dropout={calculateDropout(userSoloMatchData)}
               />
             )}
             {matchType === 'team' && (
@@ -88,6 +95,7 @@ const User = () => {
                 win={calculateWin(userTeamMatchData)}
                 goalIn={calculateGoalIn(userTeamMatchData)}
                 retire={calculateRetire(userTeamMatchData)}
+                dropout={calculateDropout(userTeamMatchData)}
               />
             )}
           </S.UserMain>
