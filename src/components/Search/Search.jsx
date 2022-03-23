@@ -46,7 +46,6 @@ const Search = () => {
       });
 
       fetchUserTeamData(accessId).then((res) => {
-        console.log(res.data.matches[0].matches);
         setUserTeamMatchData(res.data.matches[0].matches);
       });
 
