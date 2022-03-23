@@ -1,6 +1,5 @@
 import React from 'react';
 import Character from '../../../assets/metadata/character/42c729e64e31aea803e4881432f7b95129ce97535c29e4f9a72919a9f267b418.png';
-import TotalRecord from '../TotalRecord/TotalRecord';
 
 import * as S from './style';
 
