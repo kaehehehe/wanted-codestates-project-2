@@ -99,6 +99,15 @@ const User = () => {
               />
             )}
           </S.UserMain>
+          <S.MatchingSimulator>
+            <span>
+              1대1 매칭 시뮬레이터 - '{nickname}' 와 가상 대결을 펼쳐보세요.
+            </span>
+            <button
+            >
+              매칭하기
+            </button>
+          </S.MatchingSimulator>
           <S.MatchRecordList>
             <S.ToggleWrapper>
               <p>리타이어 제외</p>
