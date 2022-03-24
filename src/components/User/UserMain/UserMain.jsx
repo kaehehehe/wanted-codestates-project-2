@@ -12,7 +12,12 @@ const Header = ({ matchType, setMatchType, nickname, imgId }) => {
       />
       <S.Wrapper>
         <S.Nickname>{nickname}</S.Nickname>
-        <MatchTypeBtn matchType={matchType} setMatchType={setMatchType} />
+        <MatchTypeBtn
+          matchType={matchType}
+          setMatchType={setMatchType}
+          text_1="개인전"
+          text_2="팀전"
+        />
       </S.Wrapper>
     </S.Header>
   );

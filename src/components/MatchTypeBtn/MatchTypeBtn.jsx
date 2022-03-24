@@ -2,15 +2,21 @@ import React from 'react';
 
 import * as S from './style';
 
-const MatchTypeBtn = ({ matchType, setMatchType }) => {
+const MatchTypeBtn = ({ matchType, setMatchType, text_1, text_2 }) => {
   return (
     <S.Buttons>
-      <S.SoloBtn matchType={matchType} onClick={() => setMatchType('solo')}>
-        개인전
-      </S.SoloBtn>
-      <S.TeamBtn matchType={matchType} onClick={() => setMatchType('team')}>
-        팀전
-      </S.TeamBtn>
+      <S.LeftBtn
+        active={matchType === text_1}
+        onClick={() => setMatchType(text_1)}
+      >
+        {text_1}
+      </S.LeftBtn>
+      <S.RightBtn
+        active={matchType === text_2}
+        onClick={() => setMatchType(text_2)}
+      >
+        {text_2}
+      </S.RightBtn>
     </S.Buttons>
   );
 };

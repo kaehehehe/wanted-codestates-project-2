@@ -14,7 +14,7 @@ import TotalRecord from '../../components/User/TotalRecord/TotalRecord';
 import LineChart from '../../components/LineChart';
 
 const User = () => {
-  const [matchType, setMatchType] = useState('solo');
+  const [matchType, setMatchType] = useState('개인전');
   const { nickname } = useParams();
   const { userSoloMatchData, userTeamMatchData } = useContext(GlobalContext);
   const [favoriteMode, setFavoriteMode] = useState('');
@@ -35,7 +35,7 @@ const User = () => {
 
   const findFavoriteMode = (data) => {
     switch (matchType) {
-      case 'solo':
+      case '개인전':
         const speedIndiCombine = data.filter(
           (item) => item.channelName === 'speedIndiCombine'
         );
@@ -47,7 +47,7 @@ const User = () => {
         } else {
           return '무한부스터';
         }
-      case 'team':
+      case '팀전':
         const speedTeamCombine = data.filter(
           (item) => item.channelName === 'speedTeamCombine'
         );
@@ -107,11 +107,11 @@ const User = () => {
   useEffect(() => {
     let result;
     switch (matchType) {
-      case 'solo':
+      case '개인전':
         result = findFavoriteMode(userSoloMatchData);
         setFavoriteMode(result);
         break;
-      case 'team':
+      case '팀전':
         result = findFavoriteMode(userTeamMatchData);
         setFavoriteMode(result);
         break;
@@ -142,7 +142,7 @@ const User = () => {
               nickname={nickname}
               imgId={userSoloMatchData[0]?.character}
             />
-            {matchType === 'solo' && (
+            {matchType === '개인전' && (
               <TotalRecord
                 win={calculateWin(userSoloMatchData)}
                 goalIn={calculateGoalIn(userSoloMatchData)}
@@ -150,7 +150,7 @@ const User = () => {
                 dropout={calculateDropout(userSoloMatchData)}
               />
             )}
-            {matchType === 'team' && (
+            {matchType === '팀전' && (
               <TotalRecord
                 win={calculateWin(userTeamMatchData)}
                 goalIn={calculateGoalIn(userTeamMatchData)}
@@ -160,10 +160,10 @@ const User = () => {
             )}
           </S.UserMain>
           <S.LineChartWrapper>
-          {matchType === 'solo' && (
+          {matchType === '개인전' && (
             <LineChart rankData={getTransitionOfTheRank(userSoloMatchData)} />
           )}
-          {matchType === 'team' && (
+          {matchType === '팀전' && (
             <LineChart rankData={getTransitionOfTheRank(userTeamMatchData)} />
           )}
           </S.LineChartWrapper>
@@ -179,7 +179,7 @@ const User = () => {
               <p>리타이어 제외</p>
               <Toggle show={removeRetire} setShow={setRemoveRetire} />
             </S.ToggleWrapper>
-            {matchType === 'solo' &&
+            {matchType === '개인전' &&
               removeRetire &&
               removeRetireSoloData.map((data) => (
                 <MatchRecord
@@ -192,7 +192,7 @@ const User = () => {
                   matchTime={convertDataIntoTime(data.player.matchTime)}
                 />
               ))}
-            {matchType === 'solo' &&
+            {matchType === '개인전' &&
               !removeRetire &&
               userSoloMatchData.map((data) => (
                 <MatchRecord
@@ -205,7 +205,7 @@ const User = () => {
                   matchTime={convertDataIntoTime(data.player.matchTime)}
                 />
               ))}
-            {matchType === 'team' &&
+            {matchType === '팀전' &&
               removeRetire &&
               removeRetireTeamData.map((data) => (
                 <MatchRecord
@@ -218,7 +218,7 @@ const User = () => {
                   matchTime={convertDataIntoTime(data.player.matchTime)}
                 />
               ))}
-            {matchType === 'team' &&
+            {matchType === '팀전' &&
               !removeRetire &&
               userTeamMatchData.map((data) => (
                 <MatchRecord
