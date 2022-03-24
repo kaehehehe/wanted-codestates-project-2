@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 
 import * as S from './style';
 import MatchTypeBtn from '../../components/MatchTypeBtn/MatchTypeBtn';
+import Card from '../../components/Ranking/Card/Card';
+import { speedIndiCombineRanking } from '../../mock/speedIndiCombineRanking';
+import { speedIndiInfinitRanking } from '../../mock/speedIndiInfinitRanking';
+import { speedTeamCombineRanking } from '../../mock/speedTeamCombineRanking';
+import { speedTeamInfinitRanking } from '../../mock/speedTeamInfinitRanking';
 
 const Ranking = () => {
   const [matchType, setMatchType] = useState('개인전');
@@ -9,7 +14,7 @@ const Ranking = () => {
 
   return (
     <S.Container>
-      <S.Buttons>
+      <S.ButtonWrapper>
         <S.MatchTypeBtn>
           <MatchTypeBtn
             matchType={matchType}
@@ -24,7 +29,45 @@ const Ranking = () => {
           text_1="통합"
           text_2="무한부스터"
         />
-      </S.Buttons>
+      </S.ButtonWrapper>
+      <S.CardWrapper>
+        {matchType === '개인전' &&
+          matchCourse === '통합' &&
+          speedIndiCombineRanking.map((item, index) => {
+            if (index <= 2) {
+              return <Card key={item.nickname} data={item} />;
+            } else {
+              return;
+            }
+          })}
+        {matchType === '개인전' &&
+          matchCourse === '무한부스터' &&
+          speedIndiInfinitRanking.map((item, index) => {
+            if (index <= 2) {
+              return <Card key={item.nickname} data={item} />;
+            } else {
+              return;
+            }
+          })}
+        {matchType === '팀전' &&
+          matchCourse === '통합' &&
+          speedTeamCombineRanking.map((item, index) => {
+            if (index <= 2) {
+              return <Card key={item.nickname} data={item} />;
+            } else {
+              return;
+            }
+          })}
+        {matchType === '팀전' &&
+          matchCourse === '무한부스터' &&
+          speedTeamInfinitRanking.map((item, index) => {
+            if (index <= 2) {
+              return <Card key={item.nickname} data={item} />;
+            } else {
+              return;
+            }
+          })}
+      </S.CardWrapper>
     </S.Container>
   );
 };
