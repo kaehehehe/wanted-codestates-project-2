@@ -1,6 +1,7 @@
 import React from 'react';
 
 import * as S from './style';
+import MatchTypeBtn from '../../MatchTypeBtn';
 
 const Header = ({ matchType, setMatchType, nickname, imgId }) => {
   return (
@@ -11,14 +12,7 @@ const Header = ({ matchType, setMatchType, nickname, imgId }) => {
       />
       <S.Wrapper>
         <S.Nickname>{nickname}</S.Nickname>
-        <S.Buttons>
-          <S.SoloBtn matchType={matchType} onClick={() => setMatchType('solo')}>
-            개인전
-          </S.SoloBtn>
-          <S.TeamBtn matchType={matchType} onClick={() => setMatchType('team')}>
-            팀전
-          </S.TeamBtn>
-        </S.Buttons>
+        <MatchTypeBtn matchType={matchType} setMatchType={setMatchType} />
       </S.Wrapper>
     </S.Header>
   );
