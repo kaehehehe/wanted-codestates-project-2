@@ -11,6 +11,7 @@ import { track as TRACK_DATA } from '../../assets/metadata/track';
 import { kart as KART_DATA } from '../../assets/metadata/kart';
 import Toggle from '../../components/Toggle/Toggle';
 import TotalRecord from '../../components/User/TotalRecord/TotalRecord';
+import LineChart from '../../components/LineChart';
 
 const User = () => {
   const [matchType, setMatchType] = useState('solo');
@@ -91,6 +92,18 @@ const User = () => {
     return Math.round((retire.length / total) * 100);
   };
 
+  const getTransitionOfTheRank = (data) => {
+    const result = [];
+    for (let item of data) {
+      if (result.length === 50) return result;
+      const matchRank = item.player.matchRank;
+      if (matchRank !== '99' && matchRank !== '') {
+        result.push(Number(matchRank));
+      }
+    }
+    return result;
+  };
+
   useEffect(() => {
     let result;
     switch (matchType) {
@@ -146,6 +159,14 @@ const User = () => {
               />
             )}
           </S.UserMain>
+          <S.LineChartWrapper>
+          {matchType === 'solo' && (
+            <LineChart rankData={getTransitionOfTheRank(userSoloMatchData)} />
+          )}
+          {matchType === 'team' && (
+            <LineChart rankData={getTransitionOfTheRank(userTeamMatchData)} />
+          )}
+          </S.LineChartWrapper>
           <S.MatchingSimulator>
             <span>
               1대1 매칭 시뮬레이터 - '{nickname}' 와 가상 대결을 펼쳐보세요.
