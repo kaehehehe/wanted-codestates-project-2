@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import * as S from './style';
 import MatchTypeBtn from '../../components/MatchTypeBtn/MatchTypeBtn';
-import Card from '../../components/Ranking/Card/Card';
+import Card from '../../components/Ranking/Card';
 import { speedIndiCombineRanking } from '../../mock/speedIndiCombineRanking';
 import { speedIndiInfinitRanking } from '../../mock/speedIndiInfinitRanking';
 import { speedTeamCombineRanking } from '../../mock/speedTeamCombineRanking';
