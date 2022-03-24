@@ -1,9 +1,10 @@
 import styled, { keyframes } from 'styled-components';
 
-export const Header = styled.div`
+export const UserMain = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  width: 70%;
 `;
 
 const fadeIn = keyframes`
@@ -32,4 +33,24 @@ export const Nickname = styled.h1`
   font-size: 40px;
   padding-bottom: 10px;
   color: ${({ theme }) => theme.mainColor};
+`;
+
+export const UserData = styled.div`
+display: flex;
+flex-direction: column;
+  color: ${({ theme }) => theme.mainColor};
+
+  div {
+    display: flex;
+  }
+  strong {
+    font-size: 30px;
+  }
+  span {
+    font-size: 20px;
+  }
+
+  .mode {
+    color: #0177FF;
+  }
 `;

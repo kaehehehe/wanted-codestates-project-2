@@ -3,9 +3,17 @@ import React from 'react';
 import * as S from './style';
 import MatchTypeBtn from '../../MatchTypeBtn';
 
-const Header = ({ matchType, setMatchType, nickname, imgId }) => {
+const UserMain = ({
+  matchType,
+  setMatchType,
+  nickname,
+  imgId,
+  matchTotalCnt,
+  matchWinCnt,
+  favoriteMode
+}) => {
   return (
-    <S.Header>
+    <S.UserMain>
       <S.Character
         src={`https://s3-ap-northeast-1.amazonaws.com/solution-userstats/metadata/character/${imgId}.png`}
         alt="character"
@@ -19,8 +27,25 @@ const Header = ({ matchType, setMatchType, nickname, imgId }) => {
           text_2="팀전"
         />
       </S.Wrapper>
-    </S.Header>
+      <S.UserData>
+        <div>
+          <span>
+            <strong>{matchTotalCnt}</strong>전&nbsp;
+          </span>
+          <span>
+            <strong>{matchWinCnt}</strong>승&nbsp;
+          </span>
+          <span>
+            <strong>{matchTotalCnt - matchWinCnt}</strong>패&nbsp;
+          </span>
+        </div>
+        <span>
+          최다주행 모드&nbsp;
+          <strong className="mode">{favoriteMode}</strong>
+        </span>
+      </S.UserData>
+    </S.UserMain>
   );
 };
 
-export default Header;
+export default UserMain;

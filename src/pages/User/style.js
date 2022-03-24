@@ -15,6 +15,17 @@ export const UserMain = styled.div`
   border-style: solid;
   border-radius: 5px;
   padding: 10px 0;
+  margin-top: 20px;
+`;
+
+export const GraphData = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LineChartWrapper = styled.div`
+  flex: 1;
 `;
 
 const gradient = keyframes`

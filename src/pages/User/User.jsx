@@ -16,25 +16,18 @@ import LineChart from '../../components/LineChart';
 const User = () => {
   const { nickname } = useParams();
   const [matchType, setMatchType] = useState('개인전');
-
   const { userSoloMatchData, userTeamMatchData } = useContext(GlobalContext);
-  const [favoriteMode, setFavoriteMode] = useState('');
 
   const [removeRetire, setRemoveRetire] = useState(false);
   const [removeRetireSoloData, setRetireSoloData] = useState([]);
   const [removeRetireTeamData, setRetireTeamData] = useState([]);
 
-  const findTrackName = (trackId) => {
-    const track = TRACK_DATA.filter((item) => item.id === trackId);
-    return track[0].name;
+  const getMatchWinCnt = (data) => {
+    const result = data.filter((item) => item.player.matchWin === '1');
+    return result.length;
   };
 
-  const findKartName = (kartId) => {
-    const track = KART_DATA.filter((item) => item.id === kartId);
-    return track[0]?.name;
-  };
-
-  const findFavoriteMode = (data) => {
+  const getFavoriteMode = (data) => {
     switch (matchType) {
       case '개인전':
         const speedIndiCombine = data.filter(
@@ -105,20 +98,15 @@ const User = () => {
     return result;
   };
 
-  useEffect(() => {
-    let result;
-    switch (matchType) {
-      case '개인전':
-        result = findFavoriteMode(userSoloMatchData);
-        setFavoriteMode(result);
-        break;
-      case '팀전':
-        result = findFavoriteMode(userTeamMatchData);
-        setFavoriteMode(result);
-        break;
-      default:
-    }
-  }, [matchType]);
+  const findTrackName = (trackId) => {
+    const track = TRACK_DATA.filter((item) => item.id === trackId);
+    return track[0].name;
+  };
+
+  const findKartName = (kartId) => {
+    const track = KART_DATA.filter((item) => item.id === kartId);
+    return track[0]?.name;
+  };
 
   useEffect(() => {
     if (userSoloMatchData) {
@@ -142,7 +130,10 @@ const User = () => {
                 matchType={matchType}
                 setMatchType={setMatchType}
                 nickname={nickname}
-                imgId={userSoloMatchData[0].character}
+                imgId={userSoloMatchData[0]?.character}
+                matchTotalCnt={userSoloMatchData.length}
+                matchWinCnt={getMatchWinCnt(userSoloMatchData)}
+                favoriteMode={getFavoriteMode(userSoloMatchData)}
               />
             )}
             {matchType === '팀전' && (
@@ -150,10 +141,14 @@ const User = () => {
                 matchType={matchType}
                 setMatchType={setMatchType}
                 nickname={nickname}
-                imgId={userTeamMatchData[0].character}
+                imgId={userTeamMatchData[0]?.character}
+                matchTotalCnt={userTeamMatchData.length}
+                matchWinCnt={getMatchWinCnt(userTeamMatchData)}
+                favoriteMode={getFavoriteMode(userTeamMatchData)}
               />
             )}
-
+          </S.UserMain>
+          <S.GraphData>
             {matchType === '개인전' && (
               <TotalRecord
                 win={calculateWin(userSoloMatchData)}
@@ -170,22 +165,25 @@ const User = () => {
                 dropout={calculateDropout(userTeamMatchData)}
               />
             )}
-          </S.UserMain>
-          <S.LineChartWrapper>
-            {matchType === '개인전' && (
-              <LineChart rankData={getTransitionOfTheRank(userSoloMatchData)} />
-            )}
-            {matchType === '팀전' && (
-              <LineChart rankData={getTransitionOfTheRank(userTeamMatchData)} />
-            )}
-          </S.LineChartWrapper>
+            <S.LineChartWrapper>
+              {matchType === '개인전' && (
+                <LineChart
+                  rankData={getTransitionOfTheRank(userSoloMatchData)}
+                />
+              )}
+              {matchType === '팀전' && (
+                <LineChart
+                  rankData={getTransitionOfTheRank(userTeamMatchData)}
+                />
+              )}
+            </S.LineChartWrapper>
+          </S.GraphData>
           <S.MatchingSimulator>
             <span>
               1대1 매칭 시뮬레이터 - '{nickname}' 와 가상 대결을 펼쳐보세요.
             </span>
             <button>매칭하기</button>
           </S.MatchingSimulator>
-          <S.FavoriteMode>최다주행 모드 {favoriteMode}</S.FavoriteMode>
           <S.MatchRecordList>
             <S.ToggleWrapper>
               <p>리타이어 제외</p>
