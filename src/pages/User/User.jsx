@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import * as S from './style';
-import Header from '../../components/User/UserMain';
+import UserMain from '../../components/User/UserMain';
 import { GlobalContext } from '../../App';
 import MatchRecord from '../../components/User/MatchRecord';
 import { convertDataIntoAgo } from '../../utils/convertDataIntoAgo';
@@ -14,8 +14,9 @@ import TotalRecord from '../../components/User/TotalRecord/TotalRecord';
 import LineChart from '../../components/LineChart';
 
 const User = () => {
-  const [matchType, setMatchType] = useState('개인전');
   const { nickname } = useParams();
+  const [matchType, setMatchType] = useState('개인전');
+
   const { userSoloMatchData, userTeamMatchData } = useContext(GlobalContext);
   const [favoriteMode, setFavoriteMode] = useState('');
 
@@ -136,12 +137,23 @@ const User = () => {
       {userSoloMatchData && userTeamMatchData && (
         <S.Container>
           <S.UserMain>
-            <Header
-              matchType={matchType}
-              setMatchType={setMatchType}
-              nickname={nickname}
-              imgId={userSoloMatchData[0]?.character}
-            />
+            {matchType === '개인전' && (
+              <UserMain
+                matchType={matchType}
+                setMatchType={setMatchType}
+                nickname={nickname}
+                imgId={userSoloMatchData[0].character}
+              />
+            )}
+            {matchType === '팀전' && (
+              <UserMain
+                matchType={matchType}
+                setMatchType={setMatchType}
+                nickname={nickname}
+                imgId={userTeamMatchData[0].character}
+              />
+            )}
+
             {matchType === '개인전' && (
               <TotalRecord
                 win={calculateWin(userSoloMatchData)}
@@ -160,12 +172,12 @@ const User = () => {
             )}
           </S.UserMain>
           <S.LineChartWrapper>
-          {matchType === '개인전' && (
-            <LineChart rankData={getTransitionOfTheRank(userSoloMatchData)} />
-          )}
-          {matchType === '팀전' && (
-            <LineChart rankData={getTransitionOfTheRank(userTeamMatchData)} />
-          )}
+            {matchType === '개인전' && (
+              <LineChart rankData={getTransitionOfTheRank(userSoloMatchData)} />
+            )}
+            {matchType === '팀전' && (
+              <LineChart rankData={getTransitionOfTheRank(userTeamMatchData)} />
+            )}
           </S.LineChartWrapper>
           <S.MatchingSimulator>
             <span>
