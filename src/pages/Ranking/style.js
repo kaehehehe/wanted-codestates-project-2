@@ -21,3 +21,8 @@ export const CardWrapper = styled.ul`
   align-items: center;
   flex-wrap: wrap;
 `;
+
+export const ListWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
+`;

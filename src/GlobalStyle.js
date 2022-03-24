@@ -25,6 +25,10 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
+  ul {
+    list-style-type: none;
+  }
+
   body {
     background-color: ${({ theme }) => theme.baseColor};
   }
