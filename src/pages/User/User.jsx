@@ -12,11 +12,15 @@ import { kart as KART_DATA } from '../../assets/metadata/kart';
 import Toggle from '../../components/Toggle/Toggle';
 import TotalRecord from '../../components/User/TotalRecord/TotalRecord';
 import LineChart from '../../components/LineChart';
+import MatchTypeBtn from '../../components/MatchTypeBtn';
+import NothingMatchData from '../../components/User/NothingMatchData';
 
 const User = () => {
   const { nickname } = useParams();
-  const [matchType, setMatchType] = useState('개인전');
   const { userSoloMatchData, userTeamMatchData } = useContext(GlobalContext);
+  const [matchType, setMatchType] = useState('개인전');
+  const [matchCourse, setMatchCourse] = useState('통합');
+  const [favoriteMode, setFavoriteMode] = useState('');
 
   const [removeRetire, setRemoveRetire] = useState(false);
   const [removeRetireSoloData, setRetireSoloData] = useState([]);
@@ -109,6 +113,16 @@ const User = () => {
   };
 
   useEffect(() => {
+    if (matchType === '개인전' && userSoloMatchData) {
+      const result = getFavoriteMode(userSoloMatchData);
+      setFavoriteMode(result);
+    } else {
+      const result = getFavoriteMode(userTeamMatchData);
+      setFavoriteMode(result);
+    }
+  }, [matchType, nickname]);
+
+  useEffect(() => {
     if (userSoloMatchData) {
       const result = removeRetireMatch(userSoloMatchData);
       setRetireSoloData(result);
@@ -119,6 +133,30 @@ const User = () => {
       setRetireTeamData(result);
     }
   }, [removeRetire]);
+
+  const filteringData = (data) => {
+    if (matchType === '개인전' && matchCourse === '통합') {
+      const speedIndiCombine = data.filter(
+        (item) => item.channelName === 'speedIndiCombine'
+      );
+      return speedIndiCombine;
+    } else if (matchType === '개인전' && matchCourse === '무한부스터') {
+      const speedIndiInfinit = data.filter(
+        (item) => item.channelName === 'speedIndiInfinit'
+      );
+      return speedIndiInfinit;
+    } else if (matchType === '팀전' && matchCourse === '통합') {
+      const speedTeamCombine = data.filter(
+        (item) => item.channelName === 'speedTeamCombine'
+      );
+      return speedTeamCombine;
+    } else {
+      const speedTeamInfinit = data.filter(
+        (item) => item.channelName === 'speedTeamInfinit'
+      );
+      return speedTeamInfinit;
+    }
+  };
 
   return (
     <>
@@ -133,7 +171,7 @@ const User = () => {
                 imgId={userSoloMatchData[0]?.character}
                 matchTotalCnt={userSoloMatchData.length}
                 matchWinCnt={getMatchWinCnt(userSoloMatchData)}
-                favoriteMode={getFavoriteMode(userSoloMatchData)}
+                favoriteMode={favoriteMode}
               />
             )}
             {matchType === '팀전' && (
@@ -144,7 +182,7 @@ const User = () => {
                 imgId={userTeamMatchData[0]?.character}
                 matchTotalCnt={userTeamMatchData.length}
                 matchWinCnt={getMatchWinCnt(userTeamMatchData)}
-                favoriteMode={getFavoriteMode(userTeamMatchData)}
+                favoriteMode={favoriteMode}
               />
             )}
           </S.UserMain>
@@ -184,64 +222,86 @@ const User = () => {
             </span>
             <button>매칭하기</button>
           </S.MatchingSimulator>
-          <S.MatchRecordList>
+          <S.ListController>
+            <MatchTypeBtn
+              matchType={matchCourse}
+              setMatchType={setMatchCourse}
+              text_1="통합"
+              text_2="무한부스터"
+            />
             <S.ToggleWrapper>
               <p>리타이어 제외</p>
               <Toggle show={removeRetire} setShow={setRemoveRetire} />
             </S.ToggleWrapper>
-            {matchType === '개인전' &&
-              removeRetire &&
-              removeRetireSoloData.map((data) => (
-                <MatchRecord
-                  key={data.matchId}
-                  endTime={convertDataIntoAgo(data.endTime)}
-                  rank={data.player.matchRank}
-                  playerCount={data.playerCount}
-                  track={findTrackName(data.trackId)}
-                  kart={findKartName(data.player.kart)}
-                  matchTime={convertDataIntoTime(data.player.matchTime)}
-                />
-              ))}
-            {matchType === '개인전' &&
-              !removeRetire &&
-              userSoloMatchData.map((data) => (
-                <MatchRecord
-                  key={data.matchId}
-                  endTime={convertDataIntoAgo(data.endTime)}
-                  rank={data.player.matchRank}
-                  playerCount={data.playerCount}
-                  track={findTrackName(data.trackId)}
-                  kart={findKartName(data.player.kart)}
-                  matchTime={convertDataIntoTime(data.player.matchTime)}
-                />
-              ))}
-            {matchType === '팀전' &&
-              removeRetire &&
-              removeRetireTeamData.map((data) => (
-                <MatchRecord
-                  key={data.matchId}
-                  endTime={convertDataIntoAgo(data.endTime)}
-                  rank={data.player.matchRank}
-                  playerCount={data.playerCount}
-                  track={findTrackName(data.trackId)}
-                  kart={findKartName(data.player.kart)}
-                  matchTime={convertDataIntoTime(data.player.matchTime)}
-                />
-              ))}
-            {matchType === '팀전' &&
-              !removeRetire &&
-              userTeamMatchData.map((data) => (
-                <MatchRecord
-                  key={data.matchId}
-                  endTime={convertDataIntoAgo(data.endTime)}
-                  rank={data.player.matchRank}
-                  playerCount={data.playerCount}
-                  track={findTrackName(data.trackId)}
-                  kart={findKartName(data.player.kart)}
-                  matchTime={convertDataIntoTime(data.player.matchTime)}
-                />
-              ))}
-          </S.MatchRecordList>
+          </S.ListController>
+          {matchType === '개인전' &&
+          matchCourse === '통합' &&
+          filteringData(userSoloMatchData).length === 0 ? (
+            <NothingMatchData />
+          ) : (
+            filteringData(userSoloMatchData).map((data) => (
+              <MatchRecord
+                key={data.matchId}
+                endTime={convertDataIntoAgo(data.endTime)}
+                rank={data.player.matchRank}
+                playerCount={data.playerCount}
+                track={findTrackName(data.trackId)}
+                kart={findKartName(data.player.kart)}
+                matchTime={convertDataIntoTime(data.player.matchTime)}
+              />
+            ))
+          )}
+          {matchType === '개인전' &&
+          matchCourse === '무한부스터' &&
+          filteringData(userSoloMatchData).length === 0 ? (
+            <NothingMatchData />
+          ) : (
+            filteringData(userSoloMatchData).map((data) => (
+              <MatchRecord
+                key={data.matchId}
+                endTime={convertDataIntoAgo(data.endTime)}
+                rank={data.player.matchRank}
+                playerCount={data.playerCount}
+                track={findTrackName(data.trackId)}
+                kart={findKartName(data.player.kart)}
+                matchTime={convertDataIntoTime(data.player.matchTime)}
+              />
+            ))
+          )}
+          {matchType === '팀전' &&
+          matchCourse === '통합' &&
+          filteringData(userTeamMatchData).length === 0 ? (
+            <NothingMatchData />
+          ) : (
+            filteringData(userTeamMatchData).map((data) => (
+              <MatchRecord
+                key={data.matchId}
+                endTime={convertDataIntoAgo(data.endTime)}
+                rank={data.player.matchRank}
+                playerCount={data.playerCount}
+                track={findTrackName(data.trackId)}
+                kart={findKartName(data.player.kart)}
+                matchTime={convertDataIntoTime(data.player.matchTime)}
+              />
+            ))
+          )}
+          {matchType === '팀전' &&
+          matchCourse === '무한부스터' &&
+          filteringData(userTeamMatchData).length === 0 ? (
+            <NothingMatchData />
+          ) : (
+            filteringData(userTeamMatchData).map((data) => (
+              <MatchRecord
+                key={data.matchId}
+                endTime={convertDataIntoAgo(data.endTime)}
+                rank={data.player.matchRank}
+                playerCount={data.playerCount}
+                track={findTrackName(data.trackId)}
+                kart={findKartName(data.player.kart)}
+                matchTime={convertDataIntoTime(data.player.matchTime)}
+              />
+            ))
+          )}
         </S.Container>
       )}
     </>

@@ -62,17 +62,16 @@ export const MatchingSimulator = styled.div`
   }
 `;
 
-export const MatchRecordList = styled.div`
-  position: relative;
-  margin-top: 50px;
-`;
+export const ListController = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px;
+`
 
 export const ToggleWrapper = styled.div`
   display: flex;
   align-items: center;
-  position: absolute;
-  top: -35px;
-  right: 15px;
 
   p {
     font-size: 16px;
