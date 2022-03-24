@@ -4,7 +4,6 @@ import Chart from 'chart.js/auto';
 import { Line } from 'react-chartjs-2';
 
 const LineChart = ({ rankData }) => {
-  console.log(rankData);
   const data = {
     labels: [...Array(rankData.length)].map((_, i) => i + 1),
     datasets: [
