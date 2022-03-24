@@ -33,21 +33,18 @@ export const Nav = styled.nav`
 `;
 
 export const NavMenuContainer = styled.div`
-  background-color: #7cabe1;
-  visibility: ${({ isHover }) => (isHover ? 'visible' : 'hidden')};
-`;
+  background-color: ${({ isHover }) => (isHover ? '#7cabe1' : 'transparent')};
+  `;
 
 export const NavMenu = styled.div`
   max-width: 1200px;
-  padding: 8px 0 8px 120px;
+  padding: 8px 0 8px 100px;
   margin: 0 auto;
-  background-color: #7cabe1;
-  visibility: ${({ isHover }) => (isHover ? 'visible' : 'hidden')};
-
   a {
     color: white;
     margin-right: 40px;
     font-size: 12px;
+    visibility: ${({ isHover }) => (isHover ? 'visible' : 'hidden')};
   }
 
   a:hover {
