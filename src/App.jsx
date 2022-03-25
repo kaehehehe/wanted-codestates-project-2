@@ -32,6 +32,7 @@ const App = () => {
           <Header theme={theme} setTheme={setTheme} />
           <Navbar />
           <Routes>
+            <Route path="/" element={<Ranking />} />
             <Route path="/ranking" element={<Ranking />} />
             <Route path="/track/solo" element={<Track />} />
             <Route path="/track/team" element={<Track />} />
