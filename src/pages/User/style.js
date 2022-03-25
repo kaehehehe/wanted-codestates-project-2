@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 export const Container = styled.div`
   max-width: 1100px;
   margin: 0 auto;
+  margin-bottom: 50px;
 `;
 
 export const UserMain = styled.div`
