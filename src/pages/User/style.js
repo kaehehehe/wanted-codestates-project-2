@@ -63,11 +63,11 @@ export const MatchingSimulator = styled.div`
 `;
 
 export const ListController = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 10px;
-`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+`;
 
 export const ToggleWrapper = styled.div`
   display: flex;

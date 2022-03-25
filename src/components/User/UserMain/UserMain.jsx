@@ -14,10 +14,12 @@ const UserMain = ({
 }) => {
   return (
     <S.UserMain>
+      <S.CharacterWrapper>
       <S.Character
         src={`https://s3-ap-northeast-1.amazonaws.com/solution-userstats/metadata/character/${imgId}.png`}
         alt="character"
       />
+      </S.CharacterWrapper>
       <S.Wrapper>
         <S.Nickname>{nickname}</S.Nickname>
         <MatchTypeBtn

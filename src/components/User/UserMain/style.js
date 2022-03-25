@@ -2,15 +2,20 @@ import styled, { keyframes } from 'styled-components';
 
 export const UserMain = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
-  width: 70%;
+  width: 80%;
+`;
+
+export const CharacterWrapper = styled.div`
+  display: flex;
+  flex: 0.1;
 `;
 
 const fadeIn = keyframes`
   from {
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translateX(-80px);
   }
   to {
     opacity: 1;
@@ -26,7 +31,10 @@ export const Character = styled.img`
 
 export const Wrapper = styled.div`
   display: flex;
+  align-items: center;
   flex-direction: column;
+  flex: 0.3;
+  /* background-color: yellow; */
 `;
 
 export const Nickname = styled.h1`
@@ -36,9 +44,12 @@ export const Nickname = styled.h1`
 `;
 
 export const UserData = styled.div`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   color: ${({ theme }) => theme.mainColor};
+  flex: 0.3;
+  /* background-color: green; */
 
   div {
     display: flex;
@@ -51,6 +62,6 @@ flex-direction: column;
   }
 
   .mode {
-    color: #0177FF;
+    color: #0177ff;
   }
 `;
