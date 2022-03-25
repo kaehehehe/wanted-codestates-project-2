@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/wanted-codestates-project-2/static/js/main.4ad37da4.chunk.js",
+    "main.js.map": "/wanted-codestates-project-2/static/js/main.4ad37da4.chunk.js.map",
+    "runtime-main.js": "/wanted-codestates-project-2/static/js/runtime-main.0bfcf3d8.js",
+    "runtime-main.js.map": "/wanted-codestates-project-2/static/js/runtime-main.0bfcf3d8.js.map",
+    "static/js/2.cae58746.chunk.js": "/wanted-codestates-project-2/static/js/2.cae58746.chunk.js",
+    "static/js/2.cae58746.chunk.js.map": "/wanted-codestates-project-2/static/js/2.cae58746.chunk.js.map",
+    "index.html": "/wanted-codestates-project-2/index.html",
+    "static/js/2.cae58746.chunk.js.LICENSE.txt": "/wanted-codestates-project-2/static/js/2.cae58746.chunk.js.LICENSE.txt",
+    "static/media/arrowDown.2dfd28b1.svg": "/wanted-codestates-project-2/static/media/arrowDown.2dfd28b1.svg",
+    "static/media/arrowUp.5144e5b7.svg": "/wanted-codestates-project-2/static/media/arrowUp.5144e5b7.svg",
+    "static/media/moon.1bfa3a76.svg": "/wanted-codestates-project-2/static/media/moon.1bfa3a76.svg",
+    "static/media/search.b8648335.svg": "/wanted-codestates-project-2/static/media/search.b8648335.svg",
+    "static/media/sun.134e6bc6.svg": "/wanted-codestates-project-2/static/media/sun.134e6bc6.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0bfcf3d8.js",
+    "static/js/2.cae58746.chunk.js",
+    "static/js/main.4ad37da4.chunk.js"
+  ]
+}
