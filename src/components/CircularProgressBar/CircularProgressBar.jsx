@@ -17,6 +17,7 @@ const CircularProgressBar = ({ color, value }) => {
           strokeLinecap="square"
           trackStrokeWidth={8}
           initialAnimation={true}
+          strokeDashoffset={''}
         >
           <S.Value color={color}>{value}%</S.Value>
         </ProgressBar>
