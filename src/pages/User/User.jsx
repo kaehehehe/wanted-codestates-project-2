@@ -24,8 +24,6 @@ const User = () => {
 
   const [removeRetire, setRemoveRetire] = useState(false);
 
-
-
   const getFavoriteMode = (data) => {
     switch (matchType) {
       case '개인전':
@@ -61,30 +59,6 @@ const User = () => {
     return result;
   };
 
-  const calculateWin = (data) => {
-    const total = data.length;
-    const win = data.filter((item) => item.player.matchWin === '1');
-    return Math.round((win.length / total) * 100);
-  };
-
-  const calculateGoalIn = (data) => {
-    const total = data.length;
-    const goalIn = data.filter((item) => Number(item.player.matchRank) <= 8);
-    return Math.round((goalIn.length / total) * 100);
-  };
-
-  const calculateRetire = (data) => {
-    const total = data.length;
-    const retire = data.filter((item) => item.player.matchRetired === '1');
-    return Math.round((retire.length / total) * 100);
-  };
-
-  const calculateDropout = (data) => {
-    const total = data.length;
-    const retire = data.filter((item) => item.player.matchRank === '');
-    return Math.round((retire.length / total) * 100);
-  };
-
   const getTransitionOfTheRank = (data) => {
     const result = [];
     for (let item of data) {
@@ -115,7 +89,7 @@ const User = () => {
       const result = getFavoriteMode(userTeamMatchData);
       setFavoriteMode(result);
     }
-  }, [matchType, nickname]);
+  });
 
   const filteringData = (data) => {
     if (matchType === '개인전' && matchCourse === '통합') {
@@ -158,27 +132,12 @@ const User = () => {
                 matchType={matchType}
                 setMatchType={setMatchType}
                 nickname={nickname}
-                imgId={userTeamMatchData[0]?.character}
               />
             )}
           </S.UserMain>
           <S.GraphData>
-            {matchType === '개인전' && (
-              <TotalRecord
-                win={calculateWin(userSoloMatchData)}
-                goalIn={calculateGoalIn(userSoloMatchData)}
-                retire={calculateRetire(userSoloMatchData)}
-                dropout={calculateDropout(userSoloMatchData)}
-              />
-            )}
-            {matchType === '팀전' && (
-              <TotalRecord
-                win={calculateWin(userTeamMatchData)}
-                goalIn={calculateGoalIn(userTeamMatchData)}
-                retire={calculateRetire(userTeamMatchData)}
-                dropout={calculateDropout(userTeamMatchData)}
-              />
-            )}
+            {matchType === '개인전' && <TotalRecord data={userSoloMatchData} />}
+            {matchType === '팀전' && <TotalRecord data={userTeamMatchData} />}
             <S.LineChartWrapper>
               {matchType === '개인전' && (
                 <LineChart
