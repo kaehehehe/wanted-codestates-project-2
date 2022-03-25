@@ -20,13 +20,7 @@ const User = () => {
   const [matchType, setMatchType] = useState('개인전');
   const [matchMode, setMatchMode] = useState('통합');
   const [filteredMatchData, setFilteredMatchData] = useState([]);
-
-  const [removeRetire, setRemoveRetire] = useState(false);
-
-  const removeRetireMatch = (data) => {
-    const result = data.filter((item) => item.player.matchRetired !== '1');
-    return result;
-  };
+  const [removeData, setRemoveData] = useState(false);
 
   const getTransitionOfTheRank = (data) => {
     const result = [];
@@ -40,31 +34,52 @@ const User = () => {
     return result;
   };
 
+  const removeRetireAndDropoutData = (data) => {
+    const result = data.filter(
+      (item) => item.player.matchRank !== '99' && item.player.matchRank !== ''
+    );
+    return result;
+  };
+
   useEffect(() => {
     if (matchType === '개인전' && matchMode === '통합') {
       const speedIndiCombine = userSoloMatchData.filter(
         (item) => item.channelName === 'speedIndiCombine'
       );
-      setFilteredMatchData(speedIndiCombine);
+      if (removeData) {
+        setFilteredMatchData(removeRetireAndDropoutData(speedIndiCombine));
+      } else {
+        setFilteredMatchData(speedIndiCombine);
+      }
     } else if (matchType === '개인전' && matchMode === '무한부스터') {
       const speedIndiInfinit = userSoloMatchData.filter(
         (item) => item.channelName === 'speedIndiInfinit'
       );
-      setFilteredMatchData(speedIndiInfinit);
+      if (removeData) {
+        setFilteredMatchData(removeRetireAndDropoutData(speedIndiInfinit));
+      } else {
+        setFilteredMatchData(speedIndiInfinit);
+      }
     } else if (matchType === '팀전' && matchMode === '통합') {
       const speedTeamCombine = userTeamMatchData.filter(
         (item) => item.channelName === 'speedTeamCombine'
       );
-      setFilteredMatchData(speedTeamCombine);
+      if (removeData) {
+        setFilteredMatchData(removeRetireAndDropoutData(speedTeamCombine));
+      } else {
+        setFilteredMatchData(speedTeamCombine);
+      }
     } else {
       const speedTeamInfinit = userTeamMatchData.filter(
         (item) => item.channelName === 'speedTeamInfinit'
       );
-      setFilteredMatchData(speedTeamInfinit);
+      if (removeData) {
+        setFilteredMatchData(removeRetireAndDropoutData(speedTeamInfinit));
+      } else {
+        setFilteredMatchData(speedTeamInfinit);
+      }
     }
-  }, [matchType, matchMode]);
-
-  useEffect(() => {}, [removeRetire]);
+  }, [matchType, matchMode, removeData]);
 
   return (
     <>
@@ -116,8 +131,8 @@ const User = () => {
               text_2="무한부스터"
             />
             <S.ToggleWrapper>
-              <p>리타이어 제외</p>
-              <Toggle show={removeRetire} setShow={setRemoveRetire} />
+              <p>리타이어, 중도이탈 제외</p>
+              <Toggle show={removeData} setShow={setRemoveData} />
             </S.ToggleWrapper>
           </S.ListController>
           {filteredMatchData && filteredMatchData.length === 0 ? (
