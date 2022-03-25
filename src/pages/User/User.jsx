@@ -20,39 +20,9 @@ const User = () => {
   const { userSoloMatchData, userTeamMatchData } = useContext(GlobalContext);
   const [matchType, setMatchType] = useState('개인전');
   const [matchCourse, setMatchCourse] = useState('통합');
-  const [favoriteMode, setFavoriteMode] = useState('');
 
   const [removeRetire, setRemoveRetire] = useState(false);
 
-  const getFavoriteMode = (data) => {
-    switch (matchType) {
-      case '개인전':
-        const speedIndiCombine = data.filter(
-          (item) => item.channelName === 'speedIndiCombine'
-        );
-        const speedIndiInfinit = data.filter(
-          (item) => item.channelName === 'speedIndiInfinit'
-        );
-        if (speedIndiCombine >= speedIndiInfinit) {
-          return '통합';
-        } else {
-          return '무한부스터';
-        }
-      case '팀전':
-        const speedTeamCombine = data.filter(
-          (item) => item.channelName === 'speedTeamCombine'
-        );
-        const speedTeamInfinit = data.filter(
-          (item) => item.channelName === 'speedTeamInfinit'
-        );
-        if (speedTeamCombine >= speedTeamInfinit) {
-          return '통합';
-        } else {
-          return '무한부스터';
-        }
-      default:
-    }
-  };
 
   const removeRetireMatch = (data) => {
     const result = data.filter((item) => item.player.matchRetired !== '1');
@@ -81,15 +51,6 @@ const User = () => {
     return track[0]?.name;
   };
 
-  useEffect(() => {
-    if (matchType === '개인전' && userSoloMatchData) {
-      const result = getFavoriteMode(userSoloMatchData);
-      setFavoriteMode(result);
-    } else {
-      const result = getFavoriteMode(userTeamMatchData);
-      setFavoriteMode(result);
-    }
-  });
 
   const filteringData = (data) => {
     if (matchType === '개인전' && matchCourse === '통합') {
