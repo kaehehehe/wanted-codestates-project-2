@@ -23,8 +23,6 @@ const User = () => {
   const [favoriteMode, setFavoriteMode] = useState('');
 
   const [removeRetire, setRemoveRetire] = useState(false);
-  const [removeRetireSoloData, setRetireSoloData] = useState([]);
-  const [removeRetireTeamData, setRetireTeamData] = useState([]);
 
   const getMatchWinCnt = (data) => {
     const result = data.filter((item) => item.player.matchWin === '1');
@@ -121,18 +119,6 @@ const User = () => {
       setFavoriteMode(result);
     }
   }, [matchType, nickname]);
-
-  useEffect(() => {
-    if (userSoloMatchData) {
-      const result = removeRetireMatch(userSoloMatchData);
-      setRetireSoloData(result);
-    }
-
-    if (userTeamMatchData) {
-      const result = removeRetireMatch(userTeamMatchData);
-      setRetireTeamData(result);
-    }
-  }, [removeRetire]);
 
   const filteringData = (data) => {
     if (matchType === '개인전' && matchCourse === '통합') {
