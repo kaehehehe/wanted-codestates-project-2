@@ -31,11 +31,11 @@
 <ul>
   <li>
     <div>중도이탈율 그레프 추가</div>
-    <img width="509" alt="スクリーンショット 2022-03-25 17 36 58" src="https://user-images.githubusercontent.com/77221488/160085047-d94493e1-c18d-4af7-93d2-174e0da64e86.png">
+    <img width="500" alt="スクリーンショット 2022-03-25 17 36 58" src="https://user-images.githubusercontent.com/77221488/160085047-d94493e1-c18d-4af7-93d2-174e0da64e86.png">
   </li>
   <li>
     <div>리타이어는 빨간색으로 표시, 중도이탈은 회색으로 표시가 되도록 구현</div>
-    <img width="800" alt="スクリーンショット 2022-03-25 17 33 09" src="https://user-images.githubusercontent.com/77221488/160084381-c5a2add2-961b-47ba-bae0-f01c538e778e.png">
+    <img width="500" alt="スクリーンショット 2022-03-25 17 33 09" src="https://user-images.githubusercontent.com/77221488/160084381-c5a2add2-961b-47ba-bae0-f01c538e778e.png">
   </li>
 </ul>
 
