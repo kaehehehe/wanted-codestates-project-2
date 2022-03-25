@@ -24,10 +24,7 @@ const User = () => {
 
   const [removeRetire, setRemoveRetire] = useState(false);
 
-  const getMatchWinCnt = (data) => {
-    const result = data.filter((item) => item.player.matchWin === '1');
-    return result.length;
-  };
+
 
   const getFavoriteMode = (data) => {
     switch (matchType) {
@@ -154,10 +151,6 @@ const User = () => {
                 matchType={matchType}
                 setMatchType={setMatchType}
                 nickname={nickname}
-                imgId={userSoloMatchData[0]?.character}
-                matchTotalCnt={userSoloMatchData.length}
-                matchWinCnt={getMatchWinCnt(userSoloMatchData)}
-                favoriteMode={favoriteMode}
               />
             )}
             {matchType === '팀전' && (
@@ -166,9 +159,6 @@ const User = () => {
                 setMatchType={setMatchType}
                 nickname={nickname}
                 imgId={userTeamMatchData[0]?.character}
-                matchTotalCnt={userTeamMatchData.length}
-                matchWinCnt={getMatchWinCnt(userTeamMatchData)}
-                favoriteMode={favoriteMode}
               />
             )}
           </S.UserMain>
