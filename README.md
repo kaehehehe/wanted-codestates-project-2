@@ -40,6 +40,18 @@
   </li>
 </ul>
 
+### ✨ 기타 기능
+#### 1. 통합 모드 / 무한부스터 모드 전적 조회 기능
+<p>개인전 / 팀전의 각 모드(통합 or 무한부스터)의 전적을 조회할 수 있습니다.<br />전적 정보가 없는 경우에는 "전적정보가 없띵"이라는 메시지가 표시됩니다.</p>
+<div style={display: flex}>
+  <img width="500" alt="スクリーンショット 2022-03-25 18 00 50" src="https://user-images.githubusercontent.com/77221488/160089437-8f36490b-a8d4-4f43-8641-e505f27b8ee0.png">
+  <img width="500" alt="スクリーンショット 2022-03-25 18 00 34" src="https://user-images.githubusercontent.com/77221488/160089445-d2055563-17d1-40d2-8ae1-903f261179b5.png">
+</div>
+
+#### 2. 닉네임을 검색 시 해당 닉네임이 없는 경우 모달 띄우기
+<img width="500" alt="スクリーンショット 2022-03-25 18 10 19" src="https://user-images.githubusercontent.com/77221488/160090751-e1637f12-d574-4a19-b76c-28d08ff276a3.png">
+
+
 
 
 
