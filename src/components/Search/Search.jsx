@@ -18,14 +18,17 @@ const Search = () => {
   const navigate = useNavigate();
 
   const searchNickname = async (nickname) => {
-    return await axios.get(`/kart/v1.0/users/nickname/${nickname}`, {
-      headers: { Authorization: KEY },
-    });
+    return await axios.get(
+      `https://nexenclone.herokuapp.com/https://api.nexon.co.kr/kart/v1.0/users/nickname/${nickname}`,
+      {
+        headers: { Authorization: KEY },
+      }
+    );
   };
 
   const fetchUserSoloData = async (accessId) => {
     return await axios.get(
-      `/kart/v1.0/users/${accessId}/matches/?limit=200&match_types=7b9f0fd5377c38514dbb78ebe63ac6c3b81009d5a31dd569d1cff8f005aa881a`,
+      `https://nexenclone.herokuapp.com/https://api.nexon.co.kr/kart/v1.0/users/${accessId}/matches/?limit=200&match_types=7b9f0fd5377c38514dbb78ebe63ac6c3b81009d5a31dd569d1cff8f005aa881a`,
       {
         headers: { Authorization: KEY },
       }
@@ -34,7 +37,7 @@ const Search = () => {
 
   const fetchUserTeamData = async (accessId) => {
     return await axios.get(
-      `/kart/v1.0/users/${accessId}/matches/?limit=200&match_types=effd66758144a29868663aa50e85d3d95c5bc0147d7fdb9802691c2087f3416e`,
+      `https://nexenclone.herokuapp.com/https://api.nexon.co.kr/kart/v1.0/users/${accessId}/matches/?limit=200&match_types=effd66758144a29868663aa50e85d3d95c5bc0147d7fdb9802691c2087f3416e`,
       {
         headers: { Authorization: KEY },
       }
