@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import BackgroundImg from '../../../assets/images/background_flag_rank.png';
 
 const fadeUp = keyframes`
   from {
@@ -22,6 +23,9 @@ export const Card = styled.li`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   animation: ${fadeUp} 1s ease-in forwards;
   opacity: 0;
+  background-image: url(${BackgroundImg});
+  background-repeat: no-repeat;
+  background-size: contain;
 `;
 
 export const MedalIcon = styled.img`
